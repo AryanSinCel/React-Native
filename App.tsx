@@ -2,24 +2,71 @@ import React, { useState } from "react";
 import { View, Text, StyleSheet, Image, ScrollView, TouchableOpacity, SafeAreaView } from "react-native";
 import { Dimensions } from "react-native";
 import { useRef, useEffect } from "react";
+import VideoPlayer from "./videoPlayer";
+import Play from "./Play";
 
 
 const { width, height } = Dimensions.get("window");
 export default function App() {
   const [activeTab, setActiveTab] = useState("Home");
   
+  const renderScreen = () => {
+    switch (activeTab) {
+      case "Home":
+        return (
+          <ScrollView>
+            <View style={styles.container}>
+              <MakeForYou />
+              <TopSongCard />
+              <FeaturedSongs />
+              <CharacterSongCard />
+              <AnimeGameSongs />
+              <GenreCard />
+            </View>
+          </ScrollView>
+        );
+      case "Play":
+        return <Play />;
+      case "Search":
+        return (
+          <View style={styles.screenContainer}>
+            <Text style={styles.screenText}>Search Screen</Text>
+            <Text style={styles.screenSubtext}>Search functionality coming soon</Text>
+          </View>
+        );
+      case "Heart":
+        return (
+          <View style={styles.screenContainer}>
+            <Text style={styles.screenText}>Favorites</Text>
+            <Text style={styles.screenSubtext}>Your favorite content will appear here</Text>
+          </View>
+        );
+      case "Settings":
+        return (
+          <View style={styles.screenContainer}>
+            <Text style={styles.screenText}>Settings</Text>
+            <Text style={styles.screenSubtext}>App settings and preferences</Text>
+          </View>
+        );
+      default:
+        return (
+          <ScrollView>
+            <View style={styles.container}>
+              <MakeForYou />
+              <TopSongCard />
+              <FeaturedSongs />
+              <CharacterSongCard />
+              <AnimeGameSongs />
+              <GenreCard />
+            </View>
+          </ScrollView>
+        );
+    }
+  };
+  
   return (
     <SafeAreaView style={styles.safeArea}>
-      <ScrollView>
-      <View style={styles.container}>
-        <MakeForYou />
-        <TopSongCard />
-        <FeaturedSongs />
-        <CharacterSongCard />
-        <AnimeGameSongs />
-        <GenreCard />
-      </View>
-      </ScrollView>
+      {renderScreen()}
       <BottomNavigation activeTab={activeTab} setActiveTab={setActiveTab} />
     </SafeAreaView>
   );
@@ -248,8 +295,8 @@ const AnimeGameSongs = () => {
 const BottomNavigation = ({ activeTab, setActiveTab }: { activeTab: string; setActiveTab: (tab: string) => void }) => {
   const tabs = [
     { id: "Home", icon: "♬" },
-    { id: "Search", icon: "⌕" },
     { id: "Play", icon: "▷" },
+    { id: "Search", icon: "⌕" },
     { id: "Heart", icon: "♡" },
     { id: "Settings", icon: "⛯" },
   ];
@@ -548,5 +595,22 @@ const styles = StyleSheet.create({
     textShadowColor: "rgba(0, 0, 0, 0.75)",
     textShadowOffset: { width: 0, height: 1 },
     textShadowRadius: 3,
+  },
+  screenContainer: {
+    flex: 1,
+    justifyContent: "center",
+    alignItems: "center",
+    paddingHorizontal: 20,
+  },
+  screenText: {
+    fontSize: 24,
+    fontWeight: "bold",
+    color: "white",
+    marginBottom: 10,
+  },
+  screenSubtext: {
+    fontSize: 16,
+    color: "rgba(255, 255, 255, 0.7)",
+    textAlign: "center",
   },
 });

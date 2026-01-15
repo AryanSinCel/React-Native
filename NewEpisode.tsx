@@ -49,7 +49,7 @@ export default function App() {
           decelerationRate="fast"
           removeClippedSubviews={false}
           contentContainerStyle={{
-            paddingHorizontal: 16,
+            paddingHorizontal: 6,
             alignItems: "flex-end",
           }}
           ItemSeparatorComponent={() => <View style={{ width: SPACING }} />}

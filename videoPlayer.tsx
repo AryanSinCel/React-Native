@@ -19,58 +19,28 @@ const ITEM_MARGIN = 5;
 
 export default function VideoPlayer() {
   return (
-    <ScrollView style={styles.container} showsVerticalScrollIndicator={false}>
+    <View style={styles.container}>
       <StatusBar barStyle="light-content" />
-
-      {/* HERO */}
-      <HeroBanner />
-
-      {/* MID RAIL */}
       <MidRailBanner />
-
-      {/* SECTIONS */}
       <AnimeRail title="Top Hits" />
-      <AnimeRail title="New Episodes Releases" />
+      <AnimeRail title="New Episodes" />
       <AnimeRail title="Best of All Times" />
-    </ScrollView>
+    </View>
+
   );
 }
 
-/* ================= HERO ================= */
-
-function HeroBanner() {
-  const animeNames = ["One Punch Man", "Dandadan", "Attack on Titan"];
-  const imageArray = [
+const images = [
     "https://qqcdnpictest.mxplay.com/pic/1910b42303739c5d7dd52ffb9e6fefba/en/16x9/1600x900/test_pic1746016971303.jpg",
     "https://people.com/thmb/LaPCKkXHIQBY3cc23z64O14BhVo=/1500x0/filters:no_upscale():max_bytes(150000):strip_icc():focal(749x0:751x2)/dandadan-characters-1-071825-807ccc66d6d945c78d711b664a70266f.jpg",
     "https://m.media-amazon.com/images/S/pv-target-images/c4a482851a80ece7b6c052de1a9109a11dfa7714e58a6b60184bc2b59ecd7e21._SX1080_FMjpg_.jpg",
   ];
 
-  return (
-    <ScrollView horizontal pagingEnabled showsHorizontalScrollIndicator={false}>
-      {imageArray.map((item, index) => (
-        <View key={index} style={styles.heroItem}>
-          <Image source={{ uri: item }} style={styles.heroImage} />
-          <View style={styles.overlay}>
-            <Text style={styles.heroTitle}>{animeNames[index]}</Text>
-            <Pressable style={styles.playButton}>
-              <Text style={styles.playText}>▶ Play</Text>
-            </Pressable>
-          </View>
-        </View>
-      ))}
-    </ScrollView>
-  );
-}
+  const imageTitles = ["One Punch Man", "Dandadan", "Attack on Titan"];
 
 /* ================= MID RAIL (INFINITE) ================= */
 
 function MidRailBanner() {
-  const images = [
-    "https://qqcdnpictest.mxplay.com/pic/1910b42303739c5d7dd52ffb9e6fefba/en/16x9/1600x900/test_pic1746016971303.jpg",
-    "https://people.com/thmb/LaPCKkXHIQBY3cc23z64O14BhVo=/1500x0/filters:no_upscale():max_bytes(150000):strip_icc():focal(749x0:751x2)/dandadan-characters-1-071825-807ccc66d6d945c78d711b664a70266f.jpg",
-    "https://m.media-amazon.com/images/S/pv-target-images/c4a482851a80ece7b6c052de1a9109a11dfa7714e58a6b60184bc2b59ecd7e21._SX1080_FMjpg_.jpg",
-  ];
 
   const scrollRef = useRef<ScrollView>(null);
   const [index, setIndex] = useState(0);
@@ -158,11 +128,7 @@ interface AnimeRailProps {
 }
 
 function AnimeRail({ title }: AnimeRailProps) {
-  const imageArray = [
-    "https://qqcdnpictest.mxplay.com/pic/1910b42303739c5d7dd52ffb9e6fefba/en/16x9/1600x900/test_pic1746016971303.jpg",
-    "https://people.com/thmb/LaPCKkXHIQBY3cc23z64O14BhVo=/1500x0/filters:no_upscale():max_bytes(150000):strip_icc():focal(749x0:751x2)/dandadan-characters-1-071825-807ccc66d6d945c78d711b664a70266f.jpg",
-    "https://m.media-amazon.com/images/S/pv-target-images/c4a482851a80ece7b6c052de1a9109a11dfa7714e58a6b60184bc2b59ecd7e21._SX1080_FMjpg_.jpg",
-  ];
+  
 
   return (
     <View>
@@ -172,8 +138,11 @@ function AnimeRail({ title }: AnimeRailProps) {
       </View>
 
       <ScrollView horizontal showsHorizontalScrollIndicator={false}>
-        {imageArray.map((item, index) => (
-          <Image key={index} source={{ uri: item }} style={styles.hitCards} />
+        {images.map((item, index) => (
+          <View key={index}>
+            <Image source={{ uri: item }} style={styles.hitCards} />
+            <Text style={styles.imageTitle}>{imageTitles[index]}</Text>
+          </View>
         ))}
       </ScrollView>
     </View>
@@ -183,16 +152,16 @@ function AnimeRail({ title }: AnimeRailProps) {
 /* ================= STYLES ================= */
 
 const styles = StyleSheet.create({
-  container: { flex: 1, backgroundColor: "#fff" },
+  container: { flex: 1, marginBottom: 80},
 
   heroItem: { width, height: 340 },
   heroImage: { width: "100%", height: "100%" },
 
   overlay: { position: "absolute", bottom: 24, left: 16 },
-  heroTitle: { color: "#fff", fontSize: 20, fontWeight: "600" },
+  heroTitle: { color: "white", fontSize: 20, fontWeight: "600" },
 
   playButton: {
-    backgroundColor: "#fff",
+    backgroundColor: "white",
     paddingHorizontal: 18,
     width: 90,
     paddingVertical: 8,
@@ -218,12 +187,12 @@ const styles = StyleSheet.create({
     width: 6,
     height: 6,
     borderRadius: 3,
-    backgroundColor: "#ccc",
+    backgroundColor: "white",
     marginHorizontal: 4,
   },
 
   activeDot: {
-    backgroundColor: "#000",
+    backgroundColor: "white",
     width: 10,
   },
 
@@ -233,8 +202,9 @@ const styles = StyleSheet.create({
     margin: 14,
   },
 
-  hitCardText: { fontSize: 20, fontWeight: "bold" },
-  seeAllText: { color: "red", fontWeight: "600" },
+  hitCardText: { fontSize: 20, fontWeight: "bold", color: "white" },
+  seeAllText: { color: "white", fontWeight: "600" },
+  imageTitle: { fontSize: 12, fontWeight: "normal", color: "white", textAlign: "left", margin: 5 },
 
   hitCards: {
     width: 150,

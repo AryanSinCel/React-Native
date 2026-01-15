@@ -440,7 +440,7 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     alignItems: "center",
-    paddingHorizontal: 20,
+    paddingHorizontal: 10,
     paddingBottom: 100, // Space for bottom navigation
   },
   topSongCardSection: {
